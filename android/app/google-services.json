@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "313007146953",
+    "project_id": "diligov-d53c5",
+    "storage_bucket": "diligov-d53c5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313007146953:android:e709b259252e0339ce4a18",
+        "android_client_info": {
+          "package_name": "com.diligov.doc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbaTJ2nDku_oDgdg2bNLp_8OKZ0mlMIXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
