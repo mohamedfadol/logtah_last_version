@@ -133,51 +133,53 @@ class _CommitteeListState extends State<CommitteeList> {
                     child: CustomText(text:'Reports',color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)
                 ),
                 const SizedBox(width: 5.0,),
-                Container(
-                    width: 140,
-                    padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 15.0),
-                    color: Colors.red,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        isExpanded: true,
-                        isDense: true,
-                        menuMaxHeight: 300,
-                        style: Theme.of(context).textTheme.titleLarge,
-                        hint: const Text("Select an Board",style: TextStyle(color: Colors.white)),
-                        dropdownColor: Colors.white60,
-                        focusColor: Colors.redAccent[300],
-                        // Initial Value
-                        value: yearSelected,
-                        icon: const Icon(Icons.keyboard_arrow_down ,size: 20,color: Colors.white),
-                        // Array list of items
-                        items:[
-                          const DropdownMenuItem(
-                            value: "",
-                            child: Text("Select an Year",style: TextStyle(color: Colors.black)),
-                          ),
-                          ...yeasList.map((item){
-                            return DropdownMenuItem(
-                              value: item.toString(),
-                              child: Text(item,style: const TextStyle(color: Colors.white)),
-                            );
-                          }).toList(),
-                        ]
-                        ,
-                        // After selecting the desired option,it will
-                        // change button value to selected value
-                        onChanged: (String? newValue) {
-                          yearSelected = newValue!.toString();
-                          setState(() {
-                            yearSelected = newValue;
-                          });
-                          Map<String, dynamic> data = {"dateYearRequest": yearSelected};
-                          MeetingPageProvider providerGetMeetingByDateYear =  Provider.of<MeetingPageProvider>(context, listen: false);
-                          Future.delayed(Duration.zero, () {
-                            providerGetMeetingByDateYear.getListOfMeetingsCommittees(data);
-                          });
-                        },
+                Material(
+                  color: Colors.red,
+                  child: Container(
+                      width: 140,
+                      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 15.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          isExpanded: true,
+                          isDense: true,
+                          menuMaxHeight: 300,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          hint: const Text("Select an Board",style: TextStyle(color: Colors.white)),
+                          dropdownColor: Colors.white60,
+                          focusColor: Colors.redAccent[300],
+                          // Initial Value
+                          value: yearSelected,
+                          icon: const Icon(Icons.keyboard_arrow_down ,size: 20,color: Colors.white),
+                          // Array list of items
+                          items:[
+                            const DropdownMenuItem(
+                              value: "",
+                              child: Text("Select an Year",style: TextStyle(color: Colors.black)),
+                            ),
+                            ...yeasList.map((item){
+                              return DropdownMenuItem(
+                                value: item.toString(),
+                                child: Text(item,style: const TextStyle(color: Colors.white)),
+                              );
+                            }).toList(),
+                          ]
+                          ,
+                          // After selecting the desired option,it will
+                          // change button value to selected value
+                          onChanged: (String? newValue) {
+                            yearSelected = newValue!.toString();
+                            setState(() {
+                              yearSelected = newValue;
+                            });
+                            Map<String, dynamic> data = {"dateYearRequest": yearSelected};
+                            MeetingPageProvider providerGetMeetingByDateYear =  Provider.of<MeetingPageProvider>(context, listen: false);
+                            Future.delayed(Duration.zero, () {
+                              providerGetMeetingByDateYear.getListOfMeetingsCommittees(data);
+                            });
+                          },
+                        ),
                       ),
-                    ),
+                  ),
                 ),
 
               ],

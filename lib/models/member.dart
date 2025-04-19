@@ -9,6 +9,7 @@ import 'package:diligov/models/signature_model.dart';
 import 'business_model.dart';
 import 'category_model.dart';
 import 'competition_model.dart';
+import 'meeting_attendances.dart';
 import 'minute_signature_model.dart';
 
 class MyData {
@@ -53,6 +54,8 @@ class Member{
    MemberPivotCompetition? pivot;
    List<CompetitionModel>? competitions;
    List<Member>? managementSignature;
+   List<MeetingAttendance>? meetingAttendances;
+
 
   Member(
       {this.memberId,
@@ -75,6 +78,7 @@ class Member{
       this.positions,
       this.committees,
         this.boards,
+        this.meetingAttendances,
         this.roles,
         this.pivot,
       this.questions,
@@ -112,6 +116,23 @@ class Member{
         positions!.add(Position.fromJson(v));
       });
     }
+
+    // In your fromJson method, update the meetingAttendances parsing:
+    if (json['attendances'] != null) {
+      meetingAttendances = <MeetingAttendance>[];
+      json['attendances'].forEach((v) {
+        // Create the attendance object
+        MeetingAttendance attendance = MeetingAttendance.fromJson(v);
+
+        // Add the pivot data if it exists
+        if (v['pivot'] != null) {
+          attendance.pivot = MemberMeetingPivot.fromJson(v['pivot']);
+        }
+
+        meetingAttendances!.add(attendance);
+      });
+    }
+
 
     if (json['management_signature'] != null) {
       managementSignature = <Member>[];
@@ -158,6 +179,32 @@ class Member{
 
 }
 
+// Create a pivot class for meeting attendance
+class MemberMeetingPivot {
+  int? meetingId;
+  int? memberId;
+  bool? isAttended;
+  String? createdAt;
+  String? updatedAt;
+
+  MemberMeetingPivot({
+    this.meetingId,
+    this.memberId,
+    this.isAttended,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory MemberMeetingPivot.fromJson(Map<String, dynamic> json) {
+    return MemberMeetingPivot(
+      meetingId: json['meeting_id'],
+      memberId: json['member_id'],
+      isAttended: json['is_attended'] == 1, // Convert int to bool
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+    );
+  }
+}
 
 // Pivot table model
 class MemberPivotCompetition {

@@ -33,6 +33,7 @@ import 'package:diligov/providers/notification_page_provider.dart';
 import 'package:diligov/providers/orientation_page_provider.dart';
 import 'package:diligov/providers/performance_reward_provider_page.dart';
 import 'package:diligov/providers/positions_provider_page.dart';
+import 'package:diligov/providers/remuneration_provider_page.dart';
 import 'package:diligov/providers/resolutions_page_provider.dart';
 import 'package:diligov/providers/suite_kpi_provider_page.dart';
 import 'package:diligov/providers/theme_provider.dart';
@@ -84,6 +85,7 @@ void main() async{
     runApp(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => RemunerationProviderPage()),
           ChangeNotifierProvider<MenusProvider>(create:(_) => MenusProvider()),
           ChangeNotifierProvider<PositionsProviderPage>(create:(_) => PositionsProviderPage()),
           ChangeNotifierProvider<SuiteKpiProviderPage>(create:(_) => SuiteKpiProviderPage()),

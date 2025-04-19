@@ -27,6 +27,9 @@ import '../../widgets/loading_sniper.dart';
 import '../../widgets/stand_text_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
+import '../modules/remuneration_policy/form/set_remuneration_form.dart';
+import '../modules/remuneration_policy/remuneration_policy_list_views.dart';
+
 class QuickAccessCommitteeListView extends StatefulWidget {
   const QuickAccessCommitteeListView({Key? key}) : super(key: key);
   static const routeName = '/QuickAccessCommitteeListView';
@@ -45,7 +48,7 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
   TextEditingController _search = TextEditingController();
   TextEditingController boardStartDate = TextEditingController();
   TextEditingController endFiscalYear = TextEditingController();
-  TextEditingController _commiteeName = TextEditingController();
+  TextEditingController _committeeName = TextEditingController();
   TextEditingController _boardName = TextEditingController();
 
   String? _fileBase64 ;
@@ -117,7 +120,7 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
     super.initState();
     boardStartDate.text = "";
     endFiscalYear.text = "";
-    _commiteeName.text = "";
+    _committeeName.text = "";
     _boardName.text = "";
     _fileNameNew = "";
     _fileName = "";
@@ -217,7 +220,7 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
           label: CustomText(text: 'Edit'),
           icon: CustomIcon(icon: Icons.checklist_outlined),
           onPressed: () => openEditCommitteeDialog(committee, provider),
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
         ),
         SizedBox(width: 5),
         ElevatedButton.icon(
@@ -226,6 +229,16 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
           onPressed: () => confirmDelete(committee, provider),
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
         ),
+        SizedBox(width: 5),
+        ElevatedButton.icon(
+          label: CustomText(text: 'Set Remuneration'),
+          icon: CustomIcon(icon: Icons.add),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SetRemunerationForm(committee: committee)));
+            },
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+        ),
+
       ],
     );
   }
@@ -659,7 +672,7 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
                                     return 'Enter a valid committee Name';
                                   }
                                 },
-                                controllerField: _commiteeName,
+                                controllerField: _committeeName,
                               ),
                               Container(
                                 constraints: BoxConstraints(minHeight: 30.0),
@@ -703,7 +716,7 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
                               }
 
                               Map<String, dynamic> data = {
-                                "committee_name": _commiteeName.text,'charter_committee': _fileNameNew!,'fileSelf': _fileBase64!,
+                                "committee_name": _committeeName.text,'charter_committee': _fileNameNew!,'fileSelf': _fileBase64!,
                                 "board_id": board.selectedBoardId!,"business_id": _business_id
                               };
                               CommitteeProviderPage providerCommittee =  Provider.of<CommitteeProviderPage>(context, listen: false);
@@ -799,4 +812,6 @@ class _QuickAccessCommitteeListViewState extends State<QuickAccessCommitteeListV
   void openPDF(BuildContext context, String file,String fileName) => Navigator.of(context).push(
     MaterialPageRoute(builder: (context) => PDFViewerPageSyncfusionPackage(file: file, fileName: fileName,)),
   );
+
+
 }
